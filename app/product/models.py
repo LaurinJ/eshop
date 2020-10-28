@@ -1,3 +1,4 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
 def category_image_url(instance, filename):
@@ -7,6 +8,10 @@ def category_image_url(instance, filename):
 def product_image_url(instance, filename):
     '''upload_to for category image'''
     return 'product_{0}/{1}'.format(instance.id, filename)
+
+def images_url(instance, filename):
+    '''upload_to for images'''
+    return 'product_{0}/{1}'.format(instance.product.id, filename)
 
 class Category(models.Model):
     STATUS = (
@@ -41,11 +46,19 @@ class Product(models.Model):
     price = models.FloatField()
     amount = models.IntegerField()
     minamount = models.IntegerField()
-    detail = models.TextField()
+    detail = RichTextUploadingField()
     status = models.CharField(max_length=10, choices=STATUS)
     slug = models.SlugField()
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+class Images(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50, blank=True)
+    image = models.ImageField(blank=True, upload_to=images_url)
 
     def __str__(self):
         return self.title
