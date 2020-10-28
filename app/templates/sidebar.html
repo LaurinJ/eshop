@@ -5,7 +5,11 @@
     <div class="container">
         <div id="responsive-nav">
             <!-- category nav -->
-            <div class="category-nav">
+            {% if page == 'home' %}
+                <div class="category-nav">
+            {% else %}
+                <div class="category-nav show-on-click">
+            {% endif %}
                 <span class="category-header">Categories <i class="fa fa-list"></i></span>
                 <ul class="category-list">
                     {% for cat, subcat in category.items %}

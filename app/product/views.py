@@ -11,4 +11,4 @@ def tree_category(cat, parent):
 
 def index(request):
     cat = Category.objects.all()
-    return render(request, 'index.html', {'category':tree_category(cat, None)})
+    return render(request, 'index.html', {'category':tree_category(cat, None), 'page':'home'})

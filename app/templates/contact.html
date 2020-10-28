@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="#">Home</a></li>
+				<li class="active">Contact</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+
+	<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+                <div class="col-md-6">
+                    <div class="billing-details">
+                        <div class="section-title">
+                            <h3 class="title">Contact Form</h3>
+
+{#                            {% if messages %}#}
+{#                                {% for message in messages %}#}
+{#                                    <div class="alert alert-{{message.tags}}" role="alert">#}
+{#                                        {{ message }}#}
+{#                                    </div>#}
+{#                                {% endfor %}#}
+{#                            {% endif %}#}
+
+                        </div>
+                        <form id="checkout-form" class="clearfix" method="post">
+                            {% csrf_token %}
+{#                            {{ form.as_p }}#}
+                            {% for field in form.visible_fields %}
+                                <p>{{ field.label_tag }}{{ field }}</p>
+                                {% for error in field.errors %}
+                                    <strong class="text-danger">{{ error }}</strong>
+                                {% endfor %}
+                            {% endfor %}
+                            <input class="primary-btn" type="submit" value="SEND FORM">
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="shiping-methods">
+                        <div class="section-title">
+                            <h3 class="title">Contact Information</h3>
+                        </div>
+                        <div >
+                            {{ info.contact_info | safe }}
+                        </div>
+
+                    </div>
+                </div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+{% endblock %}
