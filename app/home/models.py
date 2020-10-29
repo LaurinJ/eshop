@@ -21,10 +21,10 @@ class ContactMessage(models.Model):
         ('Read', 'Read'),
         ('Closed', 'Closed'),
     )
-    name = models.CharField(blank=True, max_length=20)
-    email = models.CharField(blank=True, max_length=50)
-    subject = models.CharField(blank=True, max_length=50)
-    message = models.TextField(blank=True)
+    name = models.CharField(blank=False, max_length=20)
+    email = models.EmailField(blank=False, max_length=50)
+    subject = models.CharField(blank=False, max_length=50)
+    message = models.TextField(blank=False)
     status = models.CharField(max_length=10, choices=STATUS, default='New')
     ip = models.CharField(blank=True, max_length=20)
     note = models.CharField(blank=True, max_length=100)
