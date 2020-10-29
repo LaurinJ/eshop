@@ -7,15 +7,24 @@ from django.views.generic import FormView
 
 from app.home.forms import ContactForm
 from .models import ContactInformation, ContactMessage
+from app.product.models import Category, Product
 
+def tree_category(cat, parent):
+    tree ={}
+    for c in cat:
+        if c.parent_id == parent:
+            tree[c.title] = [c for c in tree_category(cat, c.id)]
+    return tree
 
-def contact(request):
-    info = ContactInformation.objects.get(pk=1)
-    form = ContactForm(None or request.POST)
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-    return render(request, 'contact.html', {'info':info, 'form':form})
+def home(request):
+    cat = Category.objects.all()
+    product_latest = Product.objects.all().order_by('-id')[:4]
+    product_picked = Product.objects.all().order_by('?')[:4]
+    context = {'page':'home',
+               'category':tree_category(cat, None),
+               'product_latest':product_latest,
+               'product_picked':product_picked}
+    return render(request, 'index.html', context)
 
 class ContactView(FormView):
     form_class = ContactForm

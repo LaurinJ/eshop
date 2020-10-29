@@ -6,5 +6,5 @@ from .views import index
 app_name = 'product'
 
 urlpatterns = [
-    path('', index, name='index'),
+    # path('', index, name='index'),
 ]

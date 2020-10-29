@@ -7,6 +7,7 @@ from app.product.models import Category, Product, Images
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['title', 'parent', 'status']
     list_filter = ['status']
+    prepopulated_fields = {'slug': ('title',)}
 
 class ProductImageInline(admin.TabularInline):
     model = Images
@@ -17,6 +18,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['category']
     readonly_fields = ['image_html']
     inlines = [ProductImageInline]
+    prepopulated_fields = {'slug':('title',)}
 
     def image_html(self, obj):
         return format_html('<img src={} height="50">', obj.image.url)
