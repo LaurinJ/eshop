@@ -9,11 +9,12 @@ from app.home.forms import ContactForm
 from .models import ContactInformation, ContactMessage
 from app.product.models import Category, Product
 
+
 def tree_category(cat, parent):
     tree ={}
     for c in cat:
         if c.parent_id == parent:
-            tree[c.title] = [c for c in tree_category(cat, c.id)]
+            tree[c] = [c for c in tree_category(cat, c.id)]
     return tree
 
 def home(request):

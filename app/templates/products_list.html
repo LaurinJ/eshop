@@ -1,17 +1,23 @@
 {% extends 'base.html' %}
+{#{% load currency %}#}
+{% block title %}{{ catdata.title }} Products{% endblock %}
+{% block description %} {{ catdata.description }} {% endblock %}
+{% block keywords %} {{ category.keywords }} {% endblock %}
+
+{% block sidebar %} {% include 'sidebar.html' %} {% endblock %}
 
 {% block content %}
+
 	<!-- BREADCRUMB -->
 	<div id="breadcrumb">
 		<div class="container">
 			<ul class="breadcrumb">
-				<li><a href="#">Home</a></li>
-				<li class="active">Products</li>
+				<li><a href="/">Home</a></li>
+				<li class="active">{{ catdata.title }} Products </li>
 			</ul>
 		</div>
 	</div>
 	<!-- /BREADCRUMB -->
-
 	<!-- section -->
 	<div class="section">
 		<!-- container -->
@@ -195,33 +201,28 @@
 					<div id="store">
 						<!-- row -->
 						<div class="row">
-                        {% if products %}
+
+
                             {% for product in products %}
-                                <!-- Product Single -->
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <div class="product product-single">
-                                        <div class="product-thumb">
-                                            <div class="product-label">
-                                                <span>New</span>
-                                                <span class="sale">-20%</span>
-                                            </div>
-                                            <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick
-                                                view
-                                            </button>
-                                            <img src="{{ product.image.url }}" alt="">
+                                <div class="product product-single">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img src="{{ product.image.url }}" alt="" style="height: 100px">
                                         </div>
-                                        <div class="product-body">
-                                            <h3 class="product-price">${{ product.price }}
-                                                <del class="product-old-price">$45.00</del>
-                                            </h3>
-                                            <div class="product-rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o empty"></i>
-                                            </div>
-                                            <h2 class="product-name"><a href="#">{{ product.title|truncatechars:25}}</a></h2>
+                                        <div class="col-md-3">
+                                            <a href="">{{ product.title }}</a>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <strong>${{ product.price }}</strong><br>
+                                            <del class="font-weak"><small>$40.00</small></del>
+                                        </div>
+                                        <div class="col-md-4">
+{#                                            <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick#}
+{#                                                view#}
+{#                                            </button>#}
+{#                                            <a href="" class="primary-btn add-to-cart"><i#}
+{#                                                class="fa fa-shopping-cart"></i> Add to Cart</a>#}
                                             <div class="product-btns">
                                                 <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                                 <button class="main-btn icon-btn"><i class="fa fa-exchange"></i>
@@ -233,11 +234,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /Product Single -->
+                                </div>
                             {% endfor %}
-                        {% else %}
-                            uu
-                        {% endif %}
+
+					    </div>
 
 						</div>
 						<!-- /row -->

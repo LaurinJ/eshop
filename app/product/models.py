@@ -1,5 +1,9 @@
-from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
+from django.urls import reverse
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
+
+from ckeditor_uploader.fields import RichTextUploadingField
 
 def category_image_url(instance, filename):
     '''upload_to for category image'''
@@ -31,6 +35,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('product:category', args=[self.slug])
 
 class Product(models.Model):
     STATUS = (

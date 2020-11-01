@@ -22,7 +22,7 @@
                                             <ul class="list-links">
                                                 <li><h3 class="list-links-title">Categories</h3></li>
                                                 {% for s in subcat %}
-                                                    <li><a href="#">{{ s.title }}</a></li>
+                                                    <li><a href="{{ cat.get_absolute_url }}">{{ s.title }}</a></li>
                                                 {% endfor %}
                                             </ul>
                                             <hr class="hidden-md hidden-lg">
@@ -43,7 +43,7 @@
                                 </div>
                             </li>
                         {% else %}
-                            <li><a href="#">{{ cat.title }}</a></li>
+                            <li><a href="{{ cat.get_absolute_url }}">{{ cat.title }}</a></li>
                         {% endif %}
                     {% endfor %}
                     
