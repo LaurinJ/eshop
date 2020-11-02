@@ -1,10 +1,13 @@
 from django.contrib import admin
 from django.urls import path
 
-from .views import category
+from .views import category, search, search_auto, product_detail
 
 app_name = 'product'
 
 urlpatterns = [
+    path('search/', search, name='search'),
+    path('search_auto/', search_auto, name='search_auto'),
+    path('<category>/<product>/', product_detail, name='product_detail'),
     path('<category>/', category, name='category'),
 ]
