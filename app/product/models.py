@@ -1,9 +1,12 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 
 from ckeditor_uploader.fields import RichTextUploadingField
+
+user = get_user_model()
 
 def category_image_url(instance, filename):
     '''upload_to for category image'''
@@ -69,3 +72,18 @@ class Images(models.Model):
 
     def __str__(self):
         return self.title
+
+class Comment(models.Model):
+    STATUS = (
+        ('New', 'New'),
+        ('True', 'True'),
+        ('False', 'False'),
+    )
+
+    comment = models.TextField()
+    rating = models.IntegerField(default=5)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(user, on_delete=models.CASCADE)
+    status = models.CharField(max_length=20, choices=STATUS, default='New')
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)

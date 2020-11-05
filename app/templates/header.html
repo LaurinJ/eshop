@@ -65,7 +65,6 @@
                 <!-- Search -->
                 <div class="header-search">
                     <form method="get" action="{% url 'product:search' %}">
-                        {% csrf_token %}
                         <input id="query" name="q" class="input search-input" type="text" placeholder="Enter your keyword">
                         <select name="catid" class="input search-categories">
                             <option value="0">All Categories</option>

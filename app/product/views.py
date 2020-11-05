@@ -1,10 +1,11 @@
 import json
 
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.shortcuts import render, redirect
 
 from .models import Category, Product, Images
-from .forms import SearchForm
+from .forms import SearchForm, CommentForm
+
 
 def tree_category(cat, parent):
     tree ={}
@@ -35,15 +36,31 @@ def search(request):
     return HttpResponseRedirect('/')
 
 def product_detail(request, category, product):
+    form = CommentForm()
     product = Product.objects.get(slug=product)
     images = Images.objects.filter(product=product)
-    return render(request, 'product-page.html', {'product':product, 'images':images})
+    return render(request, 'product-page.html', {'product':product, 'images':images, 'form':form})
+
+def add_comment(request, product_slug):
+    form = CommentForm(request.POST or None)
+    data = {}
+    if form.is_valid():
+        product  = Product.objects.get(slug=product_slug)
+        form = form.save(commit=False)
+        form.user = request.user
+        form.product = product
+        form.save()
+        data['class'] = 'success'
+        data['message'] = 'Komentář byl úspěšně přidán'
+        return JsonResponse(data)
+
+    data['class'] = 'error'
+    data['message'] = 'Něco se pokazilo zkontroluj formulář'
+    return JsonResponse(data)
 
 def search_auto(request):
     if request.is_ajax():
-        print('ok')
         q = request.GET.get('term', '')
-        print(q)
         product = Product.objects.filter(title__icontains=q)
         results = []
         for i in product:

@@ -1,6 +1,30 @@
 (function($) {
   "use strict"
 
+  $('#comment_form').submit(function (e) {
+    var url = document.getElementById('comment_form').action;
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: $('#comment_form').serialize(),
+      success: (json) => {
+                if (json) {
+                  $("#alert_comment").remove();
+                  $('#comment_form').prepend(`<div id="alert_comment" class="alert alert-${json.class}" role="alert">${json.message}</div>`);
+                  if (json.class != 'error') {
+                    document.getElementById('id_comment').value = '';
+                  }
+
+                  }
+            },
+            error: (jqXHR, err_desc, exc_obj) => {
+                console.log(exc_obj);
+            },
+    });
+    e.preventDefault();
+  });
+
+
   // NAVIGATION
   var responsiveNav = $('#responsive-nav'),
     catToggle = $('#responsive-nav .category-nav .category-header'),
