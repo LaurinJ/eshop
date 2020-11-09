@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     # 'debug_toolbar',
     'app.product',
     'app.home',
+    'app.cart',
     'ckeditor',
     'ckeditor_uploader',
 ]

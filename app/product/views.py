@@ -19,8 +19,11 @@ def index(request):
     return render(request, 'index.html', {'category':tree_category(cat, None), 'page':'home'})
 
 def category(request, category):
-    cat = Category.objects.get(slug=category)
-    products = cat.product_set.all()
+    if category == 'all':
+        products = Product.objects.all()
+    else:
+        cat = Category.objects.get(slug=category)
+        products = cat.product_set.all()
     return render(request, 'products.html', {'products':products})
 
 def search(request):
@@ -45,7 +48,7 @@ def add_comment(request, product_slug):
     form = CommentForm(request.POST or None)
     data = {}
     if form.is_valid():
-        product  = Product.objects.get(slug=product_slug)
+        product = Product.objects.get(slug=product_slug)
         form = form.save(commit=False)
         form.user = request.user
         form.product = product
