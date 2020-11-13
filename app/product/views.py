@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from .models import Category, Product, Images
 from .forms import SearchForm, CommentForm
 
+from ..cart.forms import CartForm
 
 def tree_category(cat, parent):
     tree ={}
@@ -40,9 +41,10 @@ def search(request):
 
 def product_detail(request, category, product):
     form = CommentForm()
+    cart_form = CartForm()
     product = Product.objects.get(slug=product)
     images = Images.objects.filter(product=product)
-    return render(request, 'product-page.html', {'product':product, 'images':images, 'form':form})
+    return render(request, 'product-page.html', {'product':product, 'images':images, 'form':form, 'cart_form':cart_form})
 
 def add_comment(request, product_slug):
     form = CommentForm(request.POST or None)
