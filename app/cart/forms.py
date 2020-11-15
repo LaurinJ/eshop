@@ -9,4 +9,5 @@ class PositivIntegerField(forms.IntegerField):
 
 class CartForm(forms.Form):
     quantity = PositivIntegerField(initial=1, widget=forms.NumberInput(attrs={'class':'input'}))
-    product_id = forms.CharField(max_length=10, widget=forms.HiddenInput())
+    product_id = forms.CharField(max_length=10, widget=forms.HiddenInput)
+    update = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)

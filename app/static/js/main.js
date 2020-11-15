@@ -25,6 +25,27 @@
   });
 
 
+  //
+  // $('#session_test').click(function (e) {
+  //   var session = localStorage.getItem('sessionid');
+  //   var url = document.getElementById('session_test').attributes['url'];
+  //   console.log(url);
+  //   $.ajax({
+  //     type: "POST",
+  //     url: url,
+  //     data: "ahoj",
+  //     success: (json) => {
+  //         console.log(json);
+  //           },
+  //           error: (jqXHR, err_desc, exc_obj) => {
+  //               console.log(exc_obj);
+  //           },
+  //   });
+  //    e.preventDefault();
+  // });
+
+
+
   // NAVIGATION
   var responsiveNav = $('#responsive-nav'),
     catToggle = $('#responsive-nav .category-nav .category-header'),

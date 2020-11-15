@@ -1055,7 +1055,8 @@ textarea.input {
   top: 10px;
   background-color: transparent;
   border: none;
-  color: #DADADA;
+  /*color: #DADADA;*/
+  color: black;
 }
 
 .product.product-widget .cancel-btn:hover {

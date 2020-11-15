@@ -16,6 +16,6 @@ class CartMiddleware:
         ]
         if 'view' in response.context_data:
             update = response.context_data['view'].__class__.__name__ in cart_update_views
-            # request.cart.prepare_to_render(update=update)
+            request.cart.prepare_to_render(update=update)
         response.context_data['cart'] = request.cart
         return response

@@ -120,7 +120,7 @@
                             </div>
                             <strong class="text-uppercase">My Cart:</strong>
                             <br>
-                            <span>{{ cart.total }}$</span>
+                            <span>{{ cart.total_sum }}$</span>
                         </a>
                         <div class="custom-menu">
                             <div id="shopping-cart">
@@ -135,7 +135,7 @@
                                                     <h3 class="product-price">${{ item.object.price }} <span class="qty">x{{ item.quantity }}</span></h3>
                                                     <h2 class="product-name"><a href="#">{{ item.object.title }}</a></h2>
                                                 </div>
-                                                <button class="cancel-btn"><i class="fa fa-trash"></i></button>
+                                                <button class="cancel-btn"><a href="{% url 'cart:remove' item.object.id %}"><i class="fa fa-trash"></i></a></button>
                                             </div>
                                         {% endfor %}
                                     {% else %}
@@ -143,8 +143,8 @@
                                     {% endif %}
                                 </div>
                                 <div class="shopping-cart-btns">
-                                    <button class="main-btn">View Cart</button>
-                                    <button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
+                                    <a href="{% url 'cart:detail' %}" class="main-btn">View Cart</a>
+                                    <a href="{% url 'cart:detail' %}" class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>

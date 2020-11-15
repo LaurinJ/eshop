@@ -229,9 +229,14 @@
                                                 <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                                 <button class="main-btn icon-btn"><i class="fa fa-exchange"></i>
                                                 </button>
-                                                <button class="primary-btn add-to-cart"><i
-                                                        class="fa fa-shopping-cart"></i> Add to Cart
-                                                </button>
+                                                <form action="{% url 'cart:add' %}" method="post">
+                                                    {% csrf_token %}
+                                                    <input name="product_id" value="{{ product.id }}" type="hidden">
+                                                    <input name="quantity" value="1" type="hidden">
+                                                    <button id="add-cart" type="submit" class="primary-btn add-to-cart"><i
+                                                            class="fa fa-shopping-cart"></i> Add to Cart
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

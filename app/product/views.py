@@ -17,7 +17,8 @@ def tree_category(cat, parent):
 
 def index(request):
     cat = Category.objects.all()
-    return render(request, 'index.html', {'category':tree_category(cat, None), 'page':'home'})
+    cart_form = CartForm()
+    return render(request, 'index.html', {'category':tree_category(cat, None), 'page':'home', 'cart_form':cart_form})
 
 def category(request, category):
     if category == 'all':
@@ -25,10 +26,12 @@ def category(request, category):
     else:
         cat = Category.objects.get(slug=category)
         products = cat.product_set.all()
-    return render(request, 'products.html', {'products':products})
+    cart_form = CartForm()
+    return render(request, 'products.html', {'products':products, 'cart_form':cart_form})
 
 def search(request):
     form = SearchForm(request.GET or None)
+    cart_form = CartForm()
     if form.is_valid():
         q = form.cleaned_data['q']
         catid = form.cleaned_data['catid']
@@ -36,7 +39,7 @@ def search(request):
             products = Product.objects.filter(title__icontains=q)
         else:
             products = Product.objects.filter(title__icontains=q, category=catid)
-        return render(request, 'products.html', {'products':products})
+        return render(request, 'products.html', {'products':products, 'cart_form':cart_form})
     return HttpResponseRedirect('/')
 
 def product_detail(request, category, product):
