@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 
-from .views import CartDetailView, AddCartView, CartRemoveView, testview, InfoView
+from .views import CartDetailView, AddCartView, CartRemoveView, InfoView
 
 app_name = 'cart'
 
@@ -10,5 +10,4 @@ urlpatterns = [
     path('add/', AddCartView, name='add'),
     path('remove/<int:product_id>', CartRemoveView.as_view(), name='remove'),
     path('information/', InfoView.as_view(), name='information'),
-    path('etest/', testview, name='test123'),
 ]
