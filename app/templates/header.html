@@ -112,35 +112,35 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                             <div class="header-btns-icon">
                                 <i class="fa fa-shopping-cart"></i>
-                                {% with cart|length as count %}
-                                    {% if count > 0 %}
-                                        <span class="qty">{{ count }}</span>
-                                    {% endif %}
-                                {% endwith %}
+{#                                {% with cart|length as count %}#}
+{#                                    {% if count > 0 %}#}
+{#                                        <span class="qty">{{ count }}</span>#}
+{#                                    {% endif %}#}
+{#                                {% endwith %}#}
                             </div>
                             <strong class="text-uppercase">My Cart:</strong>
                             <br>
-                            <span>{{ cart.total_sum }}$</span>
+                            <span>$</span>
                         </a>
                         <div class="custom-menu">
                             <div id="shopping-cart">
                                 <div class="shopping-cart-list">
-                                    {% if cart %}
-                                        {% for item in cart %}
-                                            <div class="product product-widget">
-                                                <div class="product-thumb">
-                                                    <img src="{{ item.object.image.url }}" alt="">
-                                                </div>
-                                                <div class="product-body">
-                                                    <h3 class="product-price">${{ item.object.price }} <span class="qty">x{{ item.quantity }}</span></h3>
-                                                    <h2 class="product-name"><a href="#">{{ item.object.title }}</a></h2>
-                                                </div>
-                                                <button class="cancel-btn"><a href="{% url 'cart:remove' item.object.id %}"><i class="fa fa-trash"></i></a></button>
-                                            </div>
-                                        {% endfor %}
-                                    {% else %}
-                                        The cart is empty
-                                    {% endif %}
+{#                                    {% if cart %}#}
+{#                                        {% for item in cart %}#}
+{#                                            <div class="product product-widget">#}
+{#                                                <div class="product-thumb">#}
+{#                                                    <img src="{{ item.object.image.url }}" alt="">#}
+{#                                                </div>#}
+{#                                                <div class="product-body">#}
+{#                                                    <h3 class="product-price">${{ item.object.price }} <span class="qty">x{{ item.quantity }}</span></h3>#}
+{#                                                    <h2 class="product-name"><a href="#">{{ item.object.title }}</a></h2>#}
+{#                                                </div>#}
+{#                                                <button class="cancel-btn"><a href="{% url 'cart:remove' item.object.id %}"><i class="fa fa-trash"></i></a></button>#}
+{#                                            </div>#}
+{#                                        {% endfor %}#}
+{#                                    {% else %}#}
+{#                                        The cart is empty#}
+{#                                    {% endif %}#}
                                 </div>
                                 <div class="shopping-cart-btns">
                                     <a href="{% url 'cart:detail' %}" class="main-btn">View Cart</a>

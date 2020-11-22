@@ -229,14 +229,18 @@
                                                 <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                                 <button class="main-btn icon-btn"><i class="fa fa-exchange"></i>
                                                 </button>
-                                                <form action="{% url 'cart:add' %}" method="post">
-                                                    {% csrf_token %}
-                                                    <input name="product_id" value="{{ product.id }}" type="hidden">
-                                                    <input name="quantity" value="1" type="hidden">
-                                                    <button id="add-cart" type="submit" class="primary-btn add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i> Add to Cart
-                                                    </button>
-                                                </form>
+{#                                                <form action="{% url 'cart:add' %}" method="post">#}
+{#                                                    {% csrf_token %}#}
+{#                                                    <input name="product_id" value="{{ product.id }}" type="hidden">#}
+{#                                                    <input name="quantity" value="1" type="hidden">#}
+{#                                                    <button id="add-cart" type="submit" class="primary-btn add-to-cart"><i#}
+{#                                                            class="fa fa-shopping-cart"></i> Add to Cart#}
+{#                                                    </button>#}
+{#                                                </form>#}
+
+                                                <button data-product="{{ product.id }}" data-action="add" class="primary-btn update-cart"><i
+                                                    class="fa fa-shopping-cart"></i> Add to Cart
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

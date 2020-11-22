@@ -1,6 +1,7 @@
 (function($) {
   "use strict"
 
+
   $('#comment_form').submit(function (e) {
     var url = document.getElementById('comment_form').action;
     $.ajax({

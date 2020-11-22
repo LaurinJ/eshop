@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Cart detail{% endblock %}
 
@@ -8,16 +9,16 @@
         <div class="container">
             <ul class="breadcrumb">
                 <li class="active">Cart</li>
-                <li><a href="{% url 'cart:information' %}">Information</a></li>
+{#                <li><a href="{% url 'cart:information' %}">Information</a></li>#}
                 <li><a href="#">Expedition</a></li>
                 <li>Payment</li>
             </ul>
         </div>
     </div>
 
-{% if cart.is_empty %}
-    The cart is empty
-{% else %}
+{#{% if False %}#}
+{#    The cart is empty#}
+{#{% else %}#}
     <!-- section -->
     <div class="section">
         <!-- container -->
@@ -39,36 +40,44 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for item in cart %}
+                    {% for item in items %}
                         <tr>
-                            <td class="thumb"><img src="{{ item.object.image.url }}" alt=""></td>
+                            <td class="thumb"><img src="{{ item.product.image.url }}" alt=""></td>
                             <td class="details">
-                                <a href="#">{{ item.object.title }}</a>
+                                <a href="#">{{ item.product.title }}</a>
                                 <ul>
                                     <li><span>Size: XL</span></li>
                                     <li><span>Color: Camelot</span></li>
                                 </ul>
                             </td>
-                            <td class="price text-center"><strong>${{ item.object.price }}</strong><br>
+                            <td class="price text-center"><strong>${{ item.product.price }}</strong><br>
                                 <del class="font-weak"><small>$40.00</small></del>
                             </td>
                             <td class="qty text-center">
-                                <form action="{% url 'cart:add' %}" method="post">
-                                    {% csrf_token %}
-                                    {% for error in item.cartadd_form.errors %}
-                                        {{ error }}
-                                    {% endfor %}
+                                <p class="quantity">{{ item.quantity }}</p>
+                                <div class="arrow-cart">
+                                <img data-product="{{ item.product.id }}" data-action="add" class="chg-quantity update-cart" src="{% static  'img/arrow-up.png' %}">
 
-                                    {{ item.cartadd_form.quantity }}
-                                    {{ item.cartadd_form.update }}
-                                    <input name="product_id" value="{{ item.object.id }}" type="hidden">
-                                    <button class="primary-btn add-to-cart"> Update</button>
-                                </form>
+							    <img data-product="{{ item.product.id }}" data-action="remove" class="chg-quantity update-cart" src="{% static  'img/arrow-down.png' %}">
+                                </div>
+
+{#                                <input class="input" type="number" value="{{ item.quantity }}">#}
+{#                                <form action="{% url 'cart:add' %}" method="post">#}
+{#                                    {% csrf_token %}#}
+{#                                    {% for error in item.cartadd_form.errors %}#}
+{#                                        {{ error }}#}
+{#                                    {% endfor %}#}
+{##}
+{#                                    {{ item.cartadd_form.quantity }}#}
+{#                                    {{ item.cartadd_form.update }}#}
+{#                                    <input name="product_id" value="{{ item.object.id }}" type="hidden">#}
+{#                                    <button class="primary-btn add-to-cart"> Update</button>#}
+{#                                </form>#}
                             </td>
-                            <td class="total text-center"><strong class="primary-color">${{ item.total_price }}</strong>
+                            <td class="total text-center"><strong class="primary-color">${{ item.get_total|floatformat:2 }}</strong>
                             </td>
-                            <td class="text-right"><a href="{% url 'cart:remove' item.object.id %}"
-                                                      class="main-btn icon-btn"><i class="fa fa-close"></i></a></td>
+{#                            <td class="text-right"><a href="{% url 'cart:remove' item.object.id %}"#}
+{#                                                      class="main-btn icon-btn"><i class="fa fa-close"></i></a></td>#}
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -76,7 +85,7 @@
                     <tr>
                         <th class="empty" colspan="3"></th>
                         <th>SUBTOTAL</th>
-                        <th colspan="2" class="sub-total">${{ cart.total_sum }}</th>
+                        <th colspan="2" class="sub-total">${{ order.get_cart_items|floatformat:2 }}</th>
                     </tr>
                     <tr>
                         <th class="empty" colspan="3"></th>
@@ -86,7 +95,7 @@
                     <tr>
                         <th class="empty" colspan="3"></th>
                         <th>TOTAL</th>
-                        <th colspan="2" class="total">${{ cart.total_sum }}</th>
+                        <th colspan="2" class="total">${{ order.get_cart_total|floatformat:2 }}</th>
                     </tr>
                     </tfoot>
                 </table>
@@ -100,7 +109,7 @@
         <!-- /container -->
     </div>
     <!-- /section -->
-{% endif %}
+{#{% endif %}#}
 
 
 {% endblock %}

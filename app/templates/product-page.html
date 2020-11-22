@@ -78,15 +78,15 @@
 							</div>
 
 							<div class="product-btns">
-                                <form action="{% url 'cart:add' %}" method="post">
-                                    {% csrf_token %}
-                                    <div class="qty-input">
-                                        <span class="text-uppercase">QTY: </span>
-                                        {{ cart_form.quantity }}
-                                    </div>
-                                    <input name="product_id" value="{{ product.id }}" type="hidden">
-                                    <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                                </form>
+{#                                <form action="{% url 'cart:add' %}" method="post">#}
+{#                                    {% csrf_token %}#}
+{#                                    <div class="qty-input">#}
+{#                                        <span class="text-uppercase">QTY: </span>#}
+{#                                        {{ cart_form.quantity }}#}
+{#                                    </div>#}
+{#                                    <input name="product_id" value="{{ product.id }}" type="hidden">#}
+{#                                    <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>#}
+{#                                </form>#}
 								<div class="pull-right">
 									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 									<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>

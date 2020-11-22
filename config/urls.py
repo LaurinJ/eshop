@@ -8,7 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.home.urls', namespace='home')),
     path('store/', include('app.product.urls', namespace='product')),
-    path('cart/', include('app.cart_session.urls', namespace='cart')),
+    path('cart/', include('app.cart.urls', namespace='cart')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 

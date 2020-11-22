@@ -158,6 +158,26 @@ hr {
   background-color: #30323A;
 }
 
+/*update cart*/
+
+.chg-quantity{
+	width: 12px;
+	cursor: pointer;
+	display: block;
+	margin-top: 5px;
+	transition:.1s;
+}
+
+.quantity{
+	display: inline-block;
+	font-weight: 700;
+	padding-right:10px;
+}
+
+.arrow-cart{
+  display: inline-block;
+}
+
 /*----------------------------*\
 	Inputs
 \*----------------------------*/
