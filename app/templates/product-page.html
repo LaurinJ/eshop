@@ -28,14 +28,14 @@
 						<div id="product-main-view">
                             {% for image in images %}
                                 <div class="product-view">
-                                    <img src="{{ image.image.url }}" alt="">
+                                    <img src="{{ image.image_url }}" alt="">
                                 </div>
                             {% endfor %}
 						</div>
 						<div id="product-view">
 							{% for image in images %}
                                 <div class="product-view">
-                                    <img src="{{ image.image.url }}" alt="">
+                                    <img src="{{ image.image_url }}" alt="">
                                 </div>
                             {% endfor %}
 						</div>
@@ -87,6 +87,10 @@
 {#                                    <input name="product_id" value="{{ product.id }}" type="hidden">#}
 {#                                    <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>#}
 {#                                </form>#}
+                                <button data-product="{{ product.id }}" data-action="add"
+                                        class="primary-btn update-cart"><i
+                                        class="fa fa-shopping-cart"></i> Add to Cart
+                                </button>
 								<div class="pull-right">
 									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 									<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>

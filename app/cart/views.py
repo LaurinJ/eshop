@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 import json
+
+from app.product.models import Category
 
 from .models import *
 
@@ -41,3 +43,24 @@ def updateItem(request):
         orderItem.delete()
 
     return JsonResponse('ok', safe=False)
+
+def address(request):
+    return render(request, 'cart/customer_address.html')
+
+def send_method(request):
+    delivery = Category.objects.get(slug='zpusob-dopravy')
+    method = delivery.product_set.all()
+    if request.method == 'POST':
+        shipping = request.POST['shipping']
+        product = Product.objects.get(id=shipping)
+
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        if method in order.orderitem_set.all():
+            pass
+
+        orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+
+        # return redirect("cart:detail")
+        print(request.POST['shipping'])
+    return render(request, 'cart/pay_delivery_method.html', {'method':method})

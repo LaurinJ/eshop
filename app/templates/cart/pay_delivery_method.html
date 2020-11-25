@@ -8,8 +8,8 @@
         <div class="container">
             <ul class="breadcrumb">
                 <li><a href="{% url 'cart:detail' %}">Cart</a></li>
-                <li class="active">Information</li>
-                <li><a href="#">Expedition</a></li>
+                <li><a href="{% url 'cart:address' %}">Information</a></li>
+                <li class="active">Expedition</li>
                 <li>Payment</li>
             </ul>
         </div>
@@ -21,61 +21,16 @@
         <div class="container">
 
             <div class="row">
-                <form id="checkout-form" class="clearfix">
-                    <div class="col-md-6">
-                        <div class="billing-details">
-                            <p>Already a customer ? <a href="#">Login</a></p>
-                            <div class="section-title">
-                                <h3 class="title">Billing Details</h3>
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="text" name="first-name" placeholder="First Name">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="text" name="last-name" placeholder="Last Name">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="email" name="email" placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="text" name="address" placeholder="Address">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="text" name="city" placeholder="City">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="text" name="country" placeholder="Country">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="text" name="zip-code" placeholder="ZIP Code">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="tel" name="tel" placeholder="Telephone">
-                            </div>
-                            <div class="form-group">
-                                <div class="input-checkbox">
-                                    <input type="checkbox" id="register">
-                                    <label class="font-weak" for="register">Create Account?</label>
-                                    <div class="caption">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                            tempor incididunt.
-                                        <p>
-                                            <input class="input" type="password" name="password"
-                                                   placeholder="Enter Your Password">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
+                <form id="checkout-form" method="post" class="clearfix">
+                    {% csrf_token %}
+                    <div class="col-md-4 col-md-offset-4">
                         <div class="shiping-methods">
                             <div class="section-title">
-                                <h4 class="title">Shiping Methods</h4>
+                                <h3 class="title">Shiping Methods</h3>
                             </div>
                             <div class="input-checkbox">
-                                <input type="radio" name="shipping" id="shipping-1" checked>
-                                <label for="shipping-1">Free Shiping - $0.00</label>
+                                <input type="radio" name="shipping" id="shipping-5" checked>
+                                <label for="shipping-5">Free Shiping - $0.00</label>
                                 <div class="caption">
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
                                         incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -84,8 +39,8 @@
                                 </div>
                             </div>
                             <div class="input-checkbox">
-                                <input type="radio" name="shipping" id="shipping-2">
-                                <label for="shipping-2">Standard - $4.00</label>
+                                <input type="radio" name="shipping" id="shipping-6">
+                                <label for="shipping-6">Standard - $4.00</label>
                                 <div class="caption">
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
                                         incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -93,11 +48,24 @@
                                     <p>
                                 </div>
                             </div>
+
+                            {% for m in method %}
+
+                            <div class="input-checkbox">
+                                <input type="radio" name="shipping" id="shipping-{{ forloop.counter }}" value="{{ m.id }}">
+                                <label for="shipping-{{ forloop.counter }}">{{ m.title }} - ${{ m.price }}</label>
+                                <div class="caption">
+                                    <p>{{ m.detail|safe }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+
                         </div>
 
                         <div class="payments-methods">
                             <div class="section-title">
-                                <h4 class="title">Payments Methods</h4>
+                                <h3 class="title">Payments Methods</h3>
                             </div>
                             <div class="input-checkbox">
                                 <input type="radio" name="payments" id="payments-1" checked>
@@ -130,6 +98,10 @@
                                 </div>
                             </div>
                         </div>
+                        <br>
+                        <br>
+                        <button type="submit" class="primary-btn">Checkout</button>
+
                     </div>
                 </form>
             </div>

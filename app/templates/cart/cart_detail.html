@@ -42,7 +42,7 @@
                     <tbody>
                     {% for item in items %}
                         <tr>
-                            <td class="thumb"><img src="{{ item.product.image.url }}" alt=""></td>
+                            <td class="thumb"><img src="{{ item.product.image_url }}" alt=""></td>
                             <td class="details">
                                 <a href="#">{{ item.product.title }}</a>
                                 <ul>
@@ -101,7 +101,7 @@
                 </table>
                 <div class="pull-right">
                     <button class="primary-btn">Place Order</button>
-                    <button id="session_test" url="" class="primary-btn">Session test</button>
+                    <button id="session_test" url="" class="primary-btn">Next</button>
                 </div>
             </div>
 

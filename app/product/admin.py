@@ -21,8 +21,10 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('title',)}
 
     def image_html(self, obj):
-        return format_html('<img src={} height="50">', obj.image.url)
-
+        if obj.image:
+            return format_html('<img src={} height="50">', obj.image.url)
+        else:
+            return format_html('<img src="/media/" height="50">')
 
 
 admin.site.register(Category, CategoryAdmin)
