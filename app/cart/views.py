@@ -5,6 +5,7 @@ import json
 from app.product.models import Category
 
 from .models import *
+from .forms import AddressForm
 
 def cart_detail(request):
 
@@ -45,22 +46,30 @@ def updateItem(request):
     return JsonResponse('ok', safe=False)
 
 def address(request):
-    return render(request, 'cart/customer_address.html')
+    form = AddressForm()
+    if request.method == 'POST':
+        print(request.POST)
+    return render(request, 'cart/customer_address.html', {'form':form})
 
 def send_method(request):
-    delivery = Category.objects.get(slug='zpusob-dopravy')
-    method = delivery.product_set.all()
+    method = Product.objects.filter(category__slug='zpusob-dopravy')
     if request.method == 'POST':
         shipping = request.POST['shipping']
-        product = Product.objects.get(id=shipping)
 
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        if method in order.orderitem_set.all():
-            pass
 
-        orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+        item = order.orderitem_set.filter(product_id__in=[m.pk for m in method]).get()
+        if item:
+            if item.id == shipping:
+                return redirect('cart:detail')
+            else:
+                item.delete()
 
-        # return redirect("cart:detail")
-        print(request.POST['shipping'])
+        orderItem, created = OrderItem.objects.get_or_create(order=order, product_id=shipping)
+        orderItem.quantity = 1
+        orderItem.save()
+
+        return redirect('cart:detail')
+
     return render(request, 'cart/pay_delivery_method.html', {'method':method})
