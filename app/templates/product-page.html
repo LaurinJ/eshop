@@ -87,6 +87,10 @@
 {#                                    <input name="product_id" value="{{ product.id }}" type="hidden">#}
 {#                                    <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>#}
 {#                                </form>#}
+                                <div class="qty-input">
+                                    <span class="text-uppercase">QTY: </span>
+                                    {{ cart_form.quantity }}
+                                </div>
                                 <button data-product="{{ product.id }}" data-action="add"
                                         class="primary-btn update-cart"><i
                                         class="fa fa-shopping-cart"></i> Add to Cart
